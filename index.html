@@ -1,117 +1,117 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Um Convite Especial 💌</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="app.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💌 Um Convite Especial</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="app.js" defer></script>
 </head>
 <body>
 
-<div class="hearts-bg" id="heartsBg"></div>
-<canvas id="confetti-canvas"></canvas>
+  <!-- Fundo com corações flutuantes -->
+  <div id="hearts-bg"></div>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="yesModal">
-  <div class="modal-box">
-    <span class="big-emoji">🥳</span>
-    <h2>Eba!!</h2>
-    <p>Sabia que você não ia resistir! <br>vai ser legal pô — por esse pedido voce não esperava né kkkkkkkkkkk</p>
-    <button class="modal-close" onclick="closeModal()">blzzz💕</button>
-  </div>
-</div>
+  <!-- Canvas de confete (ativado ao confirmar) -->
+  <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
 
-<main>
+  <!-- Card principal (aparência de app) -->
+  <div id="app">
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="envelope">💌</div>
-    <p class="hero-tag">Uma mensagem especial para você</p>
-    <h1>eu tenho um <span>convite</span><br>para você</h1>
-    <p class="hero-sub">
-      Eu poderia fingir que isso é só uma mensagem qualquer…<br>
-      mas a verdade é que eu quero muito sair com você. 🌸
-    </p>
-    <div class="scroll-cta">
-      <span>Rola pra baixo</span>
-      <span class="arrow">↓</span>
-    </div>
-  </section>
-
-  <!-- ELOGIOS -->
-  <section class="section">
-    <p class="section-label reveal">Antes de qualquer coisa…</p>
-    <h2 class="section-title reveal">Algumas coisas que eu acho de você 🤭</h2>
-    <div class="compliments-grid">
-      <div class="compliment-card reveal">
-        <span class="emoji">🧠</span>
-        <h3>Inteligente demais</h3>
-        <p>Dá pra perceber que tem muito pensamento por trás desse sorriso. E isso é ridiculamente fascinante.</p>
+    <!-- TELA 1: O Convite -->
+    <div class="screen active" id="screen-invite">
+      <div class="dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
       </div>
-      <div class="compliment-card reveal">
-        <span class="emoji">🌺</span>
-        <h3>Sua vibe é única</h3>
-        <p>Não existe outra igual. Você tem um jeito de ser que prende atenção sem nem tentar.</p>
-      </div>
-      <div class="compliment-card reveal">
-        <span class="emoji">💫</span>
-        <h3>Você inspira</h3>
-        <p>Só de te ver sendo você mesma já dá vontade de ser uma versão melhor de mim mesmo. Isso é um poder e tanto.</p>
-      </div>
-      <div class="compliment-card reveal">
-        <span class="emoji">🍰</span>
-        <h3>Doce e autêntica</h3>
-        <p>Do jeitinho certo — sem exagero. Aquele equilíbrio raro que poucas pessoas conseguem ter.</p>
+      <div class="emoji-big">🥺</div>
+      <p class="title">Pensa bem...</p>
+      <p class="subtitle">Você aceitaria ir a um<br><strong>date</strong> comigo?</p>
+      <p class="fun-msg" id="fun-msg">&nbsp;</p>
+      <div class="btn-row" id="btn-row">
+        <button class="btn btn-yes" id="btn-yes" onclick="goToVibe()">SIM 💕</button>
+        <button class="btn btn-no"  id="btn-no">NÃO!!!</button>
       </div>
     </div>
-  </section>
 
-  <div class="divider">· · · 💖 · · ·</div>
-
-  <!-- MOTIVOS -->
-  <section class="section">
-    <p class="section-label reveal">Agora os motivos oficiais</p>
-    <h2 class="section-title reveal">Por que você DEVERIA sair comigo? 🤔</h2>
-    <div class="reasons-grid">
-      <div class="reason-card reveal">
-        <span class="reason-emoji">🍕</span>
-        <h3>A gente vai comer!</h3>
-        <p>E comer bem!. Prometo escolher um lugar que você vai adorar.</p>
+    <!-- TELA 2: Escolha de Vibe -->
+    <div class="screen" id="screen-vibe">
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
       </div>
-      <div class="reason-card reveal">
-        <span class="reason-emoji">😂</span>
-        <h3>Vai ser muito divertido</h3>
-        <p>Eu me esforço pra ser engraçado. Às vezes funciona. Às vezes não. Mas nunca é chato!</p>
+      <div class="emoji-big">🎉</div>
+      <p class="title">Que bom! ❤️</p>
+      <p class="subtitle">Qual vibe você prefere?</p>
+      <div class="vibes-grid" id="vibes-grid">
+        <!-- Cards injetados pelo JavaScript -->
       </div>
-      <div class="reason-card reveal">
-        <span class="reason-emoji">🌟</span>
-        <h3>Você vai gostar</h3>
-        <p>Não é arrogância, é fé! Tenho certeza que no final você vai dizer que valeu a pena.</p>
-      </div>
-      <div class="reason-card reveal">
-        <span class="reason-emoji">☕</span>
-        <h3>Jogar conversa fora</h3>
-        <p>Atenção total, papo bom e zuerira</p>
-      </div>
+      <button class="btn-full" id="btn-vibe-next" disabled onclick="goToDate()">Próximo →</button>
     </div>
-  </section>
 
-  <!-- CTA FINAL -->
-  <section class="cta-section">
-    <h2>Então… o que você acha? 👀</h2>
-    <p>Uma resposta positiva é tudo que eu preciso pra fazer o meu dia (e talvez a semana inteira) 💌</p>
-    <div class="btn-group">
-      <button class="btn-yes" onclick="handleYes()">💕 Sim, eu topo!</button>
-      <button class="btn-no" id="btnNo" onmouseover="runAway(this)" onclick="noClick()">🙈 Não sei não…</button>
+    <!-- TELA 3: Escolha de Data -->
+    <div class="screen" id="screen-date">
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot active"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="emoji-big">📅</div>
+      <p class="title">Agora escolha uma data ❤️</p>
+      <div class="date-wrap">
+        <div>
+          <div class="field-label">Dia</div>
+          <input class="styled-input" type="date" id="pick-date" />
+        </div>
+        <div>
+          <div class="field-label">Horário</div>
+          <input class="styled-input" type="time" id="pick-time" value="19:00" />
+        </div>
+      </div>
+      <button class="btn-full" onclick="goToSummary()">Ver Resumo →</button>
     </div>
-  </section>
 
-</main>
+    <!-- TELA 4: Resumo -->
+    <div class="screen" id="screen-summary">
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot active"></div>
+      </div>
+      <div class="emoji-big">✨</div>
+      <p class="title">Perfeito! Nosso date<br>está marcado ❤️</p>
+      <div class="summary-box">
+        <div class="summary-row">
+          <span class="icon" id="sum-vibe-icon">🍔</span>
+          <span><strong>Vibe:</strong> <span id="sum-vibe-name">—</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="icon">📅</span>
+          <span><strong>Data:</strong> <span id="sum-date">—</span></span>
+        </div>
+        <div class="summary-row">
+          <span class="icon">🕐</span>
+          <span><strong>Horário:</strong> <span id="sum-time">—</span></span>
+        </div>
+      </div>
+      <button class="btn-full" onclick="celebrate()">Confirmar 🎊</button>
+    </div>
 
-<footer>feito com muito carinho (e um pouquinho de nervoso) 💌</footer>
+    <!-- TELA 5: Celebração -->
+    <div class="screen" id="screen-celebrate">
+      <div class="celebrate-emoji">❤️</div>
+      <p class="celebrate-title">Mal posso esperar<br>pelo nosso date ❤️</p>
+      <p class="subtitle" style="margin-top:4px;">Vai ser incrível! 🌟</p>
+    </div>
 
-<script src="script.js"></script>
+  </div><!-- /#app -->
+
+  <script src="script.js"></script>
 </body>
 </html>
