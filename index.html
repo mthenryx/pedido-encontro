@@ -3,115 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>💌 Um Convite Especial</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="app.js" defer></script>
+  <title>Um pedido especial 💕</title>
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/estilos.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <script src="js/app.js" defer></script>
 </head>
 <body>
 
-  <!-- Fundo com corações flutuantes -->
-  <div id="hearts-bg"></div>
+  <div id="particles" aria-hidden="true"></div>
 
-  <!-- Canvas de confete (ativado ao confirmar) -->
-  <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
-
-  <!-- Card principal (aparência de app) -->
-  <div id="app">
-
-    <!-- TELA 1: O Convite -->
-    <div class="screen active" id="screen-invite">
-      <div class="dots">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-      <div class="emoji-big">🥺</div>
-      <p class="title">Pensa bem...</p>
-      <p class="subtitle">Você aceitaria ir a um<br><strong>date</strong> comigo?</p>
-      <p class="fun-msg" id="fun-msg">&nbsp;</p>
-      <div class="btn-row" id="btn-row">
-        <button class="btn btn-yes" id="btn-yes" onclick="goToVibe()">SIM 💕</button>
-        <button class="btn btn-no"  id="btn-no">NÃO!!!</button>
-      </div>
+  <!-- TELA 1 — PERGUNTA -->
+  <section id="tela-pergunta">
+    <img src="imgs/rosa.png" alt="Emoji com uma rosa na boca" class="emoji-topo" />
+    <h1 class="pergunta">Você quer <span>sair</span> comigo?</h1>
+    <p class="subtitulo">uma proposta muito séria 💌</p>
+    <div class="botoes-wrapper">
+      <button id="btn-sim" class="btn-sim">Sim 💖</button>
+      <button id="btn-nao" class="btn-nao">Não</button>
     </div>
+    <p id="msg-deboche" aria-live="polite"></p>
+  </section>
 
-    <!-- TELA 2: Escolha de Vibe -->
-    <div class="screen" id="screen-vibe">
-      <div class="dots">
-        <div class="dot"></div>
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+  <!-- TELA 2 — AGENDAMENTO (exibida via JS, sem novo .html) -->
+  <section id="tela-encontro">
+    <img src="imgs/questionando.png" alt="Emoji pensativo" class="emoji-topo-2" />
+    <div class="card-encontro">
+      <h2 class="card-titulo">Quando a gente se <span>encontra?</span></h2>
+      <div class="campo-grupo">
+        <label for="campo-data">📅 Data</label>
+        <input type="date" id="campo-data" name="data" />
       </div>
-      <div class="emoji-big">🎉</div>
-      <p class="title">Que bom! ❤️</p>
-      <p class="subtitle">Qual vibe você prefere?</p>
-      <div class="vibes-grid" id="vibes-grid">
-        <!-- Cards injetados pelo JavaScript -->
+      <div class="campo-grupo">
+        <label for="campo-hora">⏰ Horário</label>
+        <input type="time" id="campo-hora" name="hora" />
       </div>
-      <button class="btn-full" id="btn-vibe-next" disabled onclick="goToDate()">Próximo →</button>
+      <button id="btn-marcar" class="btn-marcar">Marcar encontro 🌹</button>
     </div>
+  </section>
 
-    <!-- TELA 3: Escolha de Data -->
-    <div class="screen" id="screen-date">
-      <div class="dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot active"></div>
-        <div class="dot"></div>
-      </div>
-      <div class="emoji-big">📅</div>
-      <p class="title">Agora escolha uma data ❤️</p>
-      <div class="date-wrap">
-        <div>
-          <div class="field-label">Dia</div>
-          <input class="styled-input" type="date" id="pick-date" />
-        </div>
-        <div>
-          <div class="field-label">Horário</div>
-          <input class="styled-input" type="time" id="pick-time" value="19:00" />
-        </div>
-      </div>
-      <button class="btn-full" onclick="goToSummary()">Ver Resumo →</button>
-    </div>
-
-    <!-- TELA 4: Resumo -->
-    <div class="screen" id="screen-summary">
-      <div class="dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot active"></div>
-      </div>
-      <div class="emoji-big">✨</div>
-      <p class="title">Perfeito! Nosso date<br>está marcado ❤️</p>
-      <div class="summary-box">
-        <div class="summary-row">
-          <span class="icon" id="sum-vibe-icon">🍔</span>
-          <span><strong>Vibe:</strong> <span id="sum-vibe-name">—</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="icon">📅</span>
-          <span><strong>Data:</strong> <span id="sum-date">—</span></span>
-        </div>
-        <div class="summary-row">
-          <span class="icon">🕐</span>
-          <span><strong>Horário:</strong> <span id="sum-time">—</span></span>
-        </div>
-      </div>
-      <button class="btn-full" onclick="celebrate()">Confirmar 🎊</button>
-    </div>
-
-    <!-- TELA 5: Celebração -->
-    <div class="screen" id="screen-celebrate">
-      <div class="celebrate-emoji">❤️</div>
-      <p class="celebrate-title">Mal posso esperar<br>pelo nosso date ❤️</p>
-      <p class="subtitle" style="margin-top:4px;">Vai ser incrível! 🌟</p>
-    </div>
-
-  </div><!-- /#app -->
-
-  <script src="script.js"></script>
+  <!-- TELA 3 — CONFIRMAÇÃO (exibida via JS após marcar) -->
+  <section id="tela-confirmacao">
+    <div class="confirmacao-icon">🎉</div>
+    <h2 class="confirmacao-titulo">Encontro marcado!</h2>
+    <p class="confirmacao-detalhe">
+      📅 <strong id="confirmacao-data"></strong><br/>
+      ⏰ <strong id="confirmacao-hora"></strong>
+    </p>
+    <button id="btn-whatsapp" class="link-whatsapp">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.094.534 4.063 1.47 5.777L.057 23.882l6.264-1.645A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.032-1.385l-.36-.214-3.733.98.998-3.641-.235-.373A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+      </svg>
+      Avisar pelo WhatsApp
+    </button>
+  </section>
 </body>
 </html>
