@@ -72,7 +72,7 @@ function randomBetween(a, b) {
     const dy = (clientY - wRect.top)  - posY;
     const dist = Math.sqrt(dx * dx + dy * dy) || 1;
 
-    const velocidade = 160;
+    const velocidade = Math.min(wRect.width, wRect.height) * 0.35;
     posX = clamp(posX - (dx / dist) * velocidade, mX, wRect.width  - mX);
     posY = clamp(posY - (dy / dist) * velocidade, mY, wRect.height - mY);
 

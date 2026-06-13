@@ -110,13 +110,15 @@ body {
   position: relative;
   width: min(480px, 92vw);
   height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Botão SIM — fixo no centro */
+/* Botão SIM — levemente à esquerda */
 .btn-sim {
+  position: absolute;
+  left: 35%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
   padding: 0.9rem 2.4rem;
   background: linear-gradient(135deg, var(--rosa-medio), var(--rosa-escuro));
   color: var(--branco);
@@ -127,21 +129,24 @@ body {
   box-shadow: 0 6px 24px var(--sombra);
   transition: transform var(--transicao), box-shadow var(--transicao);
   z-index: 2;
-  flex-shrink: 0;
 }
 
 .btn-sim:hover {
-  transform: scale(1.07) translateY(-3px);
+  transform: translate(-50%, -50%) scale(1.07) translateY(-3px);
   box-shadow: 0 12px 32px var(--sombra);
 }
 
 .btn-sim:active {
-  transform: scale(0.97);
+  transform: translate(-50%, -50%) scale(0.97);
 }
 
-/* Botão NÃO — posicionado absolutamente, foge via JS */
+/* Botão NÃO — começa afastado */
 .btn-nao {
   position: absolute;
+  left: 70%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
   padding: 0.9rem 2.4rem;
   background: transparent;
   color: var(--texto-medio);
@@ -152,10 +157,6 @@ body {
   border-radius: var(--radius-pill);
   white-space: nowrap;
   z-index: 2;
-  /* posição inicial definida pelo JS */
-  top: 50%;
-  left: 65%;
-  transform: translate(-50%, -50%);
   transition: border-color 0.15s;
   pointer-events: all;
 }
